@@ -1,6 +1,7 @@
 package com.als.gblesson2.expiriment
 
 import com.als.gblesson2.data.Weather
+import java.util.*
 
 class TestClass {
 
@@ -60,5 +61,81 @@ class TestClass {
             1 -> "odin"
             else -> "mnogo"
         }
+
+    fun main(args: Array<String>) {
+        print(greetingFun)
+    }
+
+    val greetingFun = fun(): String {
+        var result = "Hello?"
+        result = result.replace("?", "")
+        return result
+    }
+
+    val greetingFunShort = { "Hello"}
+
+    val sum = { a: Int, b: Int ->
+        a + b
+    }
+
+    fun print(block: () -> String) {
+        println(block())
+    }
+
+    fun less4(){
+        val city = City("Msk", 24.4545, 78.545)
+        val cityNullable: City? = City()
+        val latlon = city.getLatLon()
+        val reverce = latlon.reversed()
+
+        with(city) {
+            this.city = "new"
+            lat = 24.545
+            lon = 45.5454
+
+        }
+
+        val applayCity = City().apply {
+            lat = 54.5454
+            lon = 547.5454
+            this.city = "dfhdghdgh"
+        }
+
+        cityNullable?.let {
+            it.doSomething()
+        }
+
+        val cityAlso = city.also {
+            print(it.city)
+        }
+
+        val len = cityNullable?.city?.length ?: 0
+        val lenq = cityNullable!!.city!!.length
+
+        city.city = "New-York"
+        city.lat = 21.45454
+        city.lon = 45.5445
+    }
+
+    fun getDefaultLocale(deliveryArea: String): Locale {
+        val deliverAreaLower = deliveryArea.toLowerCase()
+        if (deliverAreaLower == "germany" || deliverAreaLower == "austria") {
+            return Locale.GERMAN
+        }
+        if (deliverAreaLower == "usa" || deliverAreaLower == "great britain") {
+            return Locale.ENGLISH
+        }
+        if (deliverAreaLower == "france") {
+            return Locale.FRENCH
+        }
+        return Locale.ENGLISH
+    }
+
+    fun getDefaultLocaleK(deliveryArea: String) = when (deliveryArea.toLowerCase()) {
+        "germany", "austria" -> Locale.GERMAN
+        "usa", "great britain" -> Locale.ENGLISH
+        "france" -> Locale.FRENCH
+        else -> Locale.ENGLISH
+    }
 
 }
