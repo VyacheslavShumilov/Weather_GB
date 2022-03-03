@@ -1,7 +1,12 @@
 package com.als.gblesson2.expiriment
 
 import com.als.gblesson2.data.Weather
+import java.io.BufferedOutputStream
+import java.io.OutputStream
+import java.net.HttpURLConnection
+import java.net.URL
 import java.util.*
+import javax.net.ssl.HttpsURLConnection
 
 class TestClass {
 
@@ -136,6 +141,16 @@ class TestClass {
         "usa", "great britain" -> Locale.ENGLISH
         "france" -> Locale.FRENCH
         else -> Locale.ENGLISH
+    }
+
+    fun inet(){
+        var urlConnection: HttpURLConnection? = null
+        var urlConnectionS: HttpsURLConnection? = null
+        val url = URL("yandex.ru") // Указать адрес URI
+        urlConnection = url.openConnection() as HttpURLConnection
+        urlConnection.requestMethod = "GET"
+        urlConnection.readTimeout = 10000 //10sek
+        urlConnection.disconnect()
     }
 
 }
