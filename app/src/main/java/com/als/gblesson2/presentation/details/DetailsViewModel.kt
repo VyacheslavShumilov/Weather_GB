@@ -3,11 +3,15 @@ package com.als.gblesson2.presentation.details
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.als.gblesson2.App
 import com.als.gblesson2.data.details.DetailsRepository
 import com.als.gblesson2.data.details.IDetailsRepository
 import com.als.gblesson2.data.details.RemoteDataSource
+import com.als.gblesson2.data.dto.Weather
 import com.als.gblesson2.data.dto.WeatherDTO
 import com.als.gblesson2.data.dto.convertDtoToModel
+import com.als.gblesson2.data.localData.db.DbRepository
+import com.als.gblesson2.data.localData.db.IDbRepository
 import com.als.gblesson2.data.states.AppState
 import retrofit2.Call
 import retrofit2.Callback
@@ -20,7 +24,8 @@ private const val CORRUPTED_DATA = "Неполные данные"
 class DetailsViewModel(
     private val detailsLiveData: MutableLiveData<AppState> = MutableLiveData(),
     private val detailsRepository: IDetailsRepository =
-        DetailsRepository(RemoteDataSource())
+        DetailsRepository(RemoteDataSource()),
+    private val dbRepository: IDbRepository = DbRepository(App.getHistoryDao())
 ) : ViewModel() {
     val liveData: LiveData<AppState> get() = detailsLiveData
 
@@ -29,7 +34,11 @@ class DetailsViewModel(
         detailsRepository.getWeatherDetailsFromServer(lat, lon, callBack)
     }
 
-    private val callBack = object : Callback<WeatherDTO>{
+    fun saveCityToDb(weather: Weather) {
+        dbRepository.saveEntity(weather)
+    }
+
+    private val callBack = object : Callback<WeatherDTO> {
         override fun onResponse(call: Call<WeatherDTO>, response: Response<WeatherDTO>) {
             val serverResponse: WeatherDTO? = response.body()
             detailsLiveData.postValue(
@@ -43,21 +52,26 @@ class DetailsViewModel(
         }
 
         override fun onFailure(call: Call<WeatherDTO>, t: Throwable) {
-            detailsLiveData.postValue(AppState.Error(Throwable(t.message ?:
-            REQUEST_ERROR)))
+            detailsLiveData.postValue(
+                AppState.Error(
+                    Throwable(
+                        t.message ?: REQUEST_ERROR
+                    )
+                )
+            )
 
         }
 
         private fun checkResponse(serverResponse: WeatherDTO): AppState {
             val fact = serverResponse.fact
             return if (fact?.temp == null || fact.feelsLike ==
-                null || fact.condition.isNullOrEmpty()) {
+                null || fact.condition.isNullOrEmpty()
+            ) {
                 AppState.Error(Throwable(CORRUPTED_DATA))
             } else {
                 AppState.SuccessDetails(convertDtoToModel(serverResponse))
             }
         }
-
 
     }
 }

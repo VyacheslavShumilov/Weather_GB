@@ -1,4 +1,4 @@
-package com.als.gblesson2.data.localData
+package com.als.gblesson2.data.localData.data
 
 import com.als.gblesson2.data.dto.Weather
 

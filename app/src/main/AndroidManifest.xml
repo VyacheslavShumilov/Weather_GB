@@ -6,6 +6,7 @@
 
     <application
         android:allowBackup="true"
+        android:name=".App"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -14,10 +15,6 @@
         <service
             android:name=".expiriment.MainService"
             android:exported="false" />
-
-        <service android:name=".DetailsService"
-            android:exported="false"/>
-
         <activity
             android:name=".MainActivity"
             android:exported="true"

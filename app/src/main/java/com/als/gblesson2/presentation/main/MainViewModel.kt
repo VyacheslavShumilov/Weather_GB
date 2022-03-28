@@ -4,8 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.als.gblesson2.data.states.AppState
-import com.als.gblesson2.data.localData.IRepository
-import com.als.gblesson2.data.localData.Repository
+import com.als.gblesson2.data.localData.data.IRepository
+import com.als.gblesson2.data.localData.data.Repository
 import java.lang.Thread.sleep
 
 class MainViewModel(

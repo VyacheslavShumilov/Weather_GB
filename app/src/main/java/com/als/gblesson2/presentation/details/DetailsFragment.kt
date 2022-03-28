@@ -9,6 +9,7 @@ import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.als.gblesson2.R
+import com.als.gblesson2.data.dto.City
 import com.als.gblesson2.data.dto.Weather
 import com.als.gblesson2.data.states.AppState
 import com.als.gblesson2.databinding.FragmentDetailBinding
@@ -70,7 +71,10 @@ class DetailsFragment : Fragment() {
                     getString(R.string.error),
                     getString(R.string.reload),
                     {
-                        viewModel.getWeatherFromRemoteSource(weatherBundle.city.lat, weatherBundle.city.lon)
+                        viewModel.getWeatherFromRemoteSource(
+                            weatherBundle.city.lat,
+                            weatherBundle.city.lon
+                        )
                     })
             }
             else -> {
@@ -80,7 +84,10 @@ class DetailsFragment : Fragment() {
                     getString(R.string.error),
                     getString(R.string.reload),
                     {
-                        viewModel.getWeatherFromRemoteSource(weatherBundle.city.lat, weatherBundle.city.lon)
+                        viewModel.getWeatherFromRemoteSource(
+                            weatherBundle.city.lat,
+                            weatherBundle.city.lon
+                        )
                     })
             }
         }
@@ -94,11 +101,19 @@ class DetailsFragment : Fragment() {
             city.lat.toString(),
             city.lon.toString()
         )
+        val weatherToSave = weather.copy(
+            city = City(
+                city = weatherBundle.city.city,
+                lat = weatherBundle.city.lat,
+                lon = weatherBundle.city.lon
+            )
+        )
+        viewModel.saveCityToDb(weatherToSave)
         binding.temperatureValue.text = weather.temperature.toString()
         binding.feelsLikeValue.text = weather.feelsLike.toString()
         binding.weatherCondition.text = weather.condition
 
-        context?.let { ctx->
+        context?.let { ctx ->
             Glide.with(ctx)
                 .load("https://freepngimg.com/thumb/city/36275-3-city-hd.png")
                 .into(binding.headerIcon)
