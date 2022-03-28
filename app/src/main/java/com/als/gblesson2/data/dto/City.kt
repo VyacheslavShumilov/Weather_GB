@@ -1,4 +1,4 @@
-package com.als.gblesson2.data
+package com.als.gblesson2.data.dto
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize

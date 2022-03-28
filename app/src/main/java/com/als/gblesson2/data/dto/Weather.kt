@@ -1,4 +1,4 @@
-package com.als.gblesson2.data
+package com.als.gblesson2.data.dto
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
@@ -7,7 +7,8 @@ import kotlinx.android.parcel.Parcelize
 data class Weather(
     val city: City = getDefaultCity(),
     val temperature: Int = 0,
-    val feelsLike: Int = -3
+    val feelsLike: Int = -3,
+    val condition: String = ""
 ): Parcelable
 
 fun getDefaultCity() = City("Москва", 55.755826, 37.617299900000035)

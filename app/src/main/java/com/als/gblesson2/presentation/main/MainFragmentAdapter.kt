@@ -1,13 +1,12 @@
-package com.als.gblesson2.view
+package com.als.gblesson2.presentation.main
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.als.gblesson2.R
-import com.als.gblesson2.data.Weather
+import com.als.gblesson2.data.dto.Weather
 
 class MainFragmentAdapter(private var onItemViewClickListener: MainFragment.OnItemViewClickListener?)  :
     RecyclerView.Adapter<MainFragmentAdapter.MainViewHolder>() {

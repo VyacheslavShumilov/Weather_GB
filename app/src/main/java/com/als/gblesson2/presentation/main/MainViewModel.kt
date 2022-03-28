@@ -1,11 +1,11 @@
-package com.als.gblesson2.viewmodel
+package com.als.gblesson2.presentation.main
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.als.gblesson2.data.AppState
-import com.als.gblesson2.data.IRepository
-import com.als.gblesson2.data.Repository
+import com.als.gblesson2.data.states.AppState
+import com.als.gblesson2.data.localData.IRepository
+import com.als.gblesson2.data.localData.Repository
 import java.lang.Thread.sleep
 
 class MainViewModel(
@@ -25,8 +25,9 @@ class MainViewModel(
     private fun getDataFromLocalSource(isRussian: Boolean) {
         mutableLiveData.postValue(AppState.Loading)
         Thread {
-            sleep(1000)
-            mutableLiveData.postValue(AppState.Success(
+            sleep(100)
+            mutableLiveData.postValue(
+                AppState.Success(
                     if (isRussian) repository.getWeatherFromLocalStorageRus()
                     else repository.getWeatherFromLocalStorageWorld()
                 )

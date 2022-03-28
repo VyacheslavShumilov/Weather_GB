@@ -1,4 +1,4 @@
-package com.als.gblesson2.view
+package com.als.gblesson2.presentation.main
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,11 +8,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.als.gblesson2.*
-import com.als.gblesson2.data.AppState
-import com.als.gblesson2.data.Weather
+import com.als.gblesson2.data.states.AppState
+import com.als.gblesson2.data.dto.Weather
 import com.als.gblesson2.databinding.FragmentMainBinding
-import com.als.gblesson2.viewmodel.MainViewModel
-import com.google.android.material.snackbar.Snackbar
+import com.als.gblesson2.presentation.details.DetailsFragment
 
 class MainFragment : Fragment() {
 
@@ -87,6 +86,14 @@ class MainFragment : Fragment() {
                 binding.mainFragmentLoadingLayout.show()
             }
             is AppState.Error -> {
+                binding.mainFragmentLoadingLayout.hide()
+                binding.mainFragmentFAB.showSnackBar(
+                    text = getString(R.string.error),
+                    actionText = getString(R.string.reload),
+                    action = { viewModel.getWeatherFromLocalSourceRus() }
+                )
+            }
+            else -> {
                 binding.mainFragmentLoadingLayout.hide()
                 binding.mainFragmentFAB.showSnackBar(
                     text = getString(R.string.error),

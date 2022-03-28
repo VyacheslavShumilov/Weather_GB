@@ -1,14 +1,11 @@
 package com.als.gblesson2
 
-import android.content.Intent
-import android.content.IntentFilter
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.als.gblesson2.databinding.ActivityMainBinding
 import com.als.gblesson2.expiriment.MainBroadCastReceiver
-import com.als.gblesson2.expiriment.ThreadsFragment
-import com.als.gblesson2.view.MainFragment
+import com.als.gblesson2.presentation.main.MainFragment
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding

@@ -1,8 +1,6 @@
 package com.als.gblesson2.expiriment
 
-import com.als.gblesson2.data.Weather
-import java.io.BufferedOutputStream
-import java.io.OutputStream
+import com.als.gblesson2.data.dto.Weather
 import java.net.HttpURLConnection
 import java.net.URL
 import java.util.*

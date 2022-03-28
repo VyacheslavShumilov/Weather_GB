@@ -1,4 +1,4 @@
-package com.als.gblesson2.data
+package com.als.gblesson2.data.dto
 
 import com.google.gson.annotations.SerializedName
 
