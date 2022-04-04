@@ -7,6 +7,7 @@ import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import com.als.gblesson2.databinding.ActivityMainBinding
 import com.als.gblesson2.expiriment.MainBroadCastReceiver
+import com.als.gblesson2.expiriment.contentProvider.ContentProviderFragment
 import com.als.gblesson2.presentation.history.HistoryFragment
 import com.als.gblesson2.presentation.main.MainFragment
 
@@ -30,8 +31,11 @@ class MainActivity : AppCompatActivity() {
             .commit()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    private fun openFragmentAddBackStack(fragment: Fragment) {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.container, fragment)
+            .addToBackStack(null)
+            .commit()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -47,6 +51,10 @@ class MainActivity : AppCompatActivity() {
                         .addToBackStack("")
                         .commitAllowingStateLoss()
                 }
+                true
+            }
+            R.id.menu_content_provider -> {
+                openFragmentAddBackStack(ContentProviderFragment())
                 true
             }
             else -> super.onOptionsItemSelected(item)
