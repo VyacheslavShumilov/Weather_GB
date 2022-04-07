@@ -1,15 +1,16 @@
 package com.als.gblesson2
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.als.gblesson2.databinding.ActivityMainBinding
 import com.als.gblesson2.expiriment.MainBroadCastReceiver
 import com.als.gblesson2.expiriment.contentProvider.ContentProviderFragment
 import com.als.gblesson2.presentation.history.HistoryFragment
 import com.als.gblesson2.presentation.main.MainFragment
+import com.als.gblesson2.presentation.maps.SearchFragment
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -57,8 +58,11 @@ class MainActivity : AppCompatActivity() {
                 openFragmentAddBackStack(ContentProviderFragment())
                 true
             }
+            R.id.menu_maps -> {
+                openFragmentAddBackStack(SearchFragment())
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
-
 }
