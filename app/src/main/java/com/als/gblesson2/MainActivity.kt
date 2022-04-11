@@ -11,6 +11,7 @@ import com.als.gblesson2.expiriment.contentProvider.ContentProviderFragment
 import com.als.gblesson2.presentation.history.HistoryFragment
 import com.als.gblesson2.presentation.main.MainFragment
 import com.als.gblesson2.presentation.maps.SearchFragment
+import com.google.firebase.messaging.FirebaseMessaging
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -20,6 +21,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+//        FirebaseMessaging.getInstance().token.addOnCompleteListener {
+//            if (it.isComplete) {
+//                val firebaseToken = it.result.toString()
+//            }
+//        }
         if (savedInstanceState == null) {
             openFragment(MainFragment.newInstance())
 //            openFragment(ThreadsFragment.newInstance())
